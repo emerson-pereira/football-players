@@ -1,16 +1,6 @@
 import { defineStore } from 'pinia';
 import { api } from 'src/boot/axios';
-
-export interface FootballPlayer {
-  name: string;
-  age: number;
-  position: string;
-  nationality: string;
-}
-
-interface FootballPlayersStore {
-  footballPlayers: FootballPlayer[],
-}
+import { FootballPlayer, FootballPlayersStore } from './models';
 
 export const useFootballPlayersStore = defineStore('football-players', {
   state: (): FootballPlayersStore => ({
