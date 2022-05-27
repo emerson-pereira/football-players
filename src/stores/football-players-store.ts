@@ -30,4 +30,5 @@ export const useFootballPlayersStore = defineStore('football-players', {
       this.footballPlayers = response.data;
     }
   },
+  persist: true
 });
