@@ -6,6 +6,8 @@ export const useFootballPlayersStore = defineStore('football-players', {
   state: (): FootballPlayersStore => ({
     footballPlayers: [],
     selectedFootballPositions: [],
+    selectedFootballPlayersNames: [],
+    pickedFootballPlayerName: '',
   }),
   getters: {
     footballPositions: (state): string[] => {
@@ -13,6 +15,25 @@ export const useFootballPlayersStore = defineStore('football-players', {
         ({ position }) => position
       );
       return Array.from(new Set(positions));
+    },
+    footballPlayersNamesBySelectedPositions: (state): string[] => {
+      return state.footballPlayers
+        .filter((player: FootballPlayer) =>
+          state.selectedFootballPositions.includes(player.position)
+        )
+        .map((player: FootballPlayer) => player.name);
+    },
+    footballPlayersBySelectNames: (state): FootballPlayer[] => {
+      return state.footballPlayers.filter(
+        (player: FootballPlayer) =>
+          state.selectedFootballPlayersNames.includes(player.name)
+      );
+    },
+    pickedFootballPlayer: (state): FootballPlayer | undefined => {
+      return state.footballPlayers.find(
+        (player: FootballPlayer) =>
+          player.name === state.pickedFootballPlayerName
+      );
     }
   },
   actions: {
@@ -23,6 +44,12 @@ export const useFootballPlayersStore = defineStore('football-players', {
     updateFootballPositionsSelection(positions: string[]): void {
       this.selectedFootballPositions = positions;
     },
+    updateFootballPlayersSelection(playersNames: string[]): void {
+      this.selectedFootballPlayersNames = playersNames;
+    },
+    updatePickedFootballPlayerName(name: string): void {
+      this.pickedFootballPlayerName = name;
+    }
   },
   persist: true
 });

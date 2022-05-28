@@ -1,5 +1,5 @@
 <template>
-<div class="q-pa-md">
+  <div class="q-pa-md">
     <div class="q-gutter-sm">
       <q-checkbox
         v-model="footballPlayersStore.selectedFootballPositions"
@@ -29,8 +29,9 @@ export default defineComponent({
   },
   methods: {
     onPositionsSelectionUpdate(positions) {
-      const footballPlayersStore = useFootballPlayersStore();
-      footballPlayersStore.updateFootballPositionsSelection(positions);
+      this.footballPlayersStore.updateFootballPositionsSelection(
+        positions
+      );
     }
   }
 });
