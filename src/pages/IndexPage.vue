@@ -20,7 +20,7 @@ const playerPickComponent = shallowRef(PlayerPickComponent);
 export default defineComponent({
   name: 'IndexPage',
   components: { StepperComponent },
-  setup () {
+  setup() {
     const steps = ref<Step[]>([
       {
         step: 1,
@@ -44,6 +44,6 @@ export default defineComponent({
   mounted() {
     const footballPlayersStore = useFootballPlayersStore();
     footballPlayersStore.getFootballPlayers();
-  }
+  },
 });
 </script>

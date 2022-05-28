@@ -4,9 +4,9 @@
       v-for="player in footballPlayersStore.footballPlayersBySelectNames"
       :key="player.name"
       class="my-card q-pb-md"
-      style="width: calc(100px + 10vw);"
+      style="width: calc(100px + 10vw)"
     >
-      <img :src="IMAGE_URL">
+      <img :src="IMAGE_URL" />
 
       <q-card-section class="q-pt-md">
         <div class="row no-wrap items-center">
@@ -17,10 +17,7 @@
       </q-card-section>
 
       <q-list>
-        <q-item
-          v-for="detail in getPlayerDetails(player)"
-          :key="detail.label"
-        >
+        <q-item v-for="detail in getPlayerDetails(player)" :key="detail.label">
           <q-item-section avatar>
             <q-icon color="gray" :name="detail.icon" />
           </q-item-section>
@@ -47,23 +44,12 @@
     <q-dialog v-model="confirm" persistent>
       <q-card>
         <q-card-section class="row items-center">
-          <q-avatar
-            icon="done"
-            color="secondary"
-            text-color="white"
-          />
-          <span class="q-ml-sm">
-            Choose {{ player.name }}?
-          </span>
+          <q-avatar icon="done" color="secondary" text-color="white" />
+          <span class="q-ml-sm"> Choose {{ player.name }}? </span>
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn
-            flat
-            label="Cancel"
-            color="primary"
-            v-close-popup
-          />
+          <q-btn flat label="Cancel" color="primary" v-close-popup />
 
           <q-btn
             flat
@@ -84,10 +70,11 @@ import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'PlayerPickComponent',
-  setup () {
+  setup() {
     const footballPlayersStore = useFootballPlayersStore();
 
-    const IMAGE_URL = 'https://images.unsplash.com/photo-1511886929837-354d827aae26?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80&h=200';
+    const IMAGE_URL =
+      'https://images.unsplash.com/photo-1511886929837-354d827aae26?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80&h=200';
 
     return {
       footballPlayersStore,
@@ -115,7 +102,7 @@ export default defineComponent({
       this.footballPlayersStore.resetSelectedFootballPositions();
       this.footballPlayersStore.resetSelectedFootballPlayersNames();
       this.footballPlayersStore.resetStep();
-    }
-  }
+    },
+  },
 });
 </script>

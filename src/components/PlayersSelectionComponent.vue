@@ -20,19 +20,17 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'PlayersSelectionComponent',
-  setup () {
+  setup() {
     const footballPlayersStore = useFootballPlayersStore();
 
     return {
-      footballPlayersStore
+      footballPlayersStore,
     };
   },
   methods: {
     onPlayerSelectionUpdate(playersNames) {
-      this.footballPlayersStore.updateFootballPlayersSelection(
-        playersNames
-      );
-    }
-  }
+      this.footballPlayersStore.updateFootballPlayersSelection(playersNames);
+    },
+  },
 });
 </script>

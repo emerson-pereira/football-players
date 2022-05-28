@@ -12,9 +12,7 @@ export const useFootballPlayersStore = defineStore('football-players', {
   }),
   getters: {
     footballPositions: (state): string[] => {
-      const positions = state.footballPlayers.map(
-        ({ position }) => position
-      );
+      const positions = state.footballPlayers.map(({ position }) => position);
       return Array.from(new Set(positions));
     },
     footballPlayersNamesBySelectedPositions: (state): string[] => {
@@ -25,9 +23,8 @@ export const useFootballPlayersStore = defineStore('football-players', {
         .map((player: FootballPlayer) => player.name);
     },
     footballPlayersBySelectNames: (state): FootballPlayer[] => {
-      return state.footballPlayers.filter(
-        (player: FootballPlayer) =>
-          state.selectedFootballPlayersNames.includes(player.name)
+      return state.footballPlayers.filter((player: FootballPlayer) =>
+        state.selectedFootballPlayersNames.includes(player.name)
       );
     },
     pickedFootballPlayer: (state): FootballPlayer | undefined => {
@@ -35,11 +32,13 @@ export const useFootballPlayersStore = defineStore('football-players', {
         (player: FootballPlayer) =>
           player.name === state.pickedFootballPlayerName
       );
-    }
+    },
   },
   actions: {
     async getFootballPlayers(): Promise<void> {
-      const response = await api.get<FootballPlayer[]>('/football-players/master/players.json');
+      const response = await api.get<FootballPlayer[]>(
+        '/football-players/master/players.json'
+      );
       this.footballPlayers = response.data;
     },
     updateFootballPositionsSelection(positions: string[]): void {
@@ -61,5 +60,5 @@ export const useFootballPlayersStore = defineStore('football-players', {
       this.currentStep = 1;
     },
   },
-  persist: true
+  persist: true,
 });

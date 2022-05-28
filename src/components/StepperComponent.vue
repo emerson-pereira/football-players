@@ -1,6 +1,5 @@
 <template>
   <div class="q-pa-md">
-
     <q-stepper
       v-model="footballPlayersStore.currentStep"
       ref="stepper"
@@ -29,7 +28,8 @@
 
           <q-btn
             v-if="footballPlayersStore.currentStep > 1"
-            flat color="blue"
+            flat
+            color="blue"
             @click="$refs.stepper.previous()"
             label="Back"
             class="q-ml-sm"
@@ -37,16 +37,12 @@
         </q-stepper-navigation>
       </template>
     </q-stepper>
-
   </div>
 </template>
 
 <script lang="ts">
 import { useFootballPlayersStore } from 'src/stores/football-players-store';
-import {
-  defineComponent,
-  PropType,
-} from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { Step } from './models';
 
 export default defineComponent({
@@ -54,14 +50,14 @@ export default defineComponent({
   props: {
     steps: {
       type: Array as PropType<Step[]>,
-      default: () => []
+      default: () => [],
     },
   },
-  setup () {
+  setup() {
     const footballPlayersStore = useFootballPlayersStore();
 
     return {
-      footballPlayersStore
+      footballPlayersStore,
     };
   },
   methods: {
@@ -70,8 +66,7 @@ export default defineComponent({
       if (isBackToStep1) {
         this.footballPlayersStore.resetSelectedFootballPlayersNames();
       }
-    }
-  }
-
+    },
+  },
 });
 </script>
