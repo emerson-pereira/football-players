@@ -1,8 +1,7 @@
-export interface Todo {
-  id: number;
-  content: string;
-}
+import { Component } from 'vue';
 
-export interface Meta {
-  totalCount: number;
+export interface Step {
+  step: number;
+  title: string;
+  component: Component
 }

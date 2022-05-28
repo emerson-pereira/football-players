@@ -1,49 +1,44 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+  <q-page class="items-center justify-evenly">
+    <stepper-component :steps="steps" />
   </q-page>
 </template>
 
 <script lang="ts">
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
-import { defineComponent, ref } from 'vue';
+import { Step } from 'components/models';
+import PositionsSelectionComponent from 'src/components/PositionsSelectionComponent.vue';
+import PlayerSelectionComponent from 'src/components/PlayersSelectionComponent.vue';
+import PlayerPickComponent from 'src/components/PlayerPickComponent.vue';
+import { defineComponent, ref, shallowRef } from 'vue';
+import StepperComponent from '../components/StepperComponent.vue';
+
+const positionsSelectionComponent = shallowRef(PositionsSelectionComponent);
+const playersSelectionComponent = shallowRef(PlayerSelectionComponent);
+const playerPickComponent = shallowRef(PlayerPickComponent);
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { ExampleComponent },
+  components: { StepperComponent },
   setup () {
-    const todos = ref<Todo[]>([
+    const steps = ref<Step[]>([
       {
-        id: 1,
-        content: 'ct1'
+        step: 1,
+        title: 'Select Positions',
+        component: positionsSelectionComponent,
       },
       {
-        id: 2,
-        content: 'ct2'
+        step: 2,
+        title: 'Select Players',
+        component: playersSelectionComponent,
       },
       {
-        id: 3,
-        content: 'ct3'
+        step: 3,
+        title: 'Pick Player',
+        component: playerPickComponent,
       },
-      {
-        id: 4,
-        content: 'ct4'
-      },
-      {
-        id: 5,
-        content: 'ct5'
-      }
     ]);
-    const meta = ref<Meta>({
-      totalCount: 1200
-    });
-    return { todos, meta };
+
+    return { steps };
   }
 });
 </script>
