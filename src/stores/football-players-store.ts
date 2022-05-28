@@ -8,6 +8,7 @@ export const useFootballPlayersStore = defineStore('football-players', {
     selectedFootballPositions: [],
     selectedFootballPlayersNames: [],
     pickedFootballPlayerName: '',
+    currentStep: 1,
   }),
   getters: {
     footballPositions: (state): string[] => {
@@ -49,7 +50,16 @@ export const useFootballPlayersStore = defineStore('football-players', {
     },
     updatePickedFootballPlayerName(name: string): void {
       this.pickedFootballPlayerName = name;
-    }
+    },
+    resetSelectedFootballPositions(): void {
+      this.selectedFootballPositions = [];
+    },
+    resetSelectedFootballPlayersNames(): void {
+      this.selectedFootballPlayersNames = [];
+    },
+    resetStep(): void {
+      this.currentStep = 1;
+    },
   },
   persist: true
 });

@@ -33,23 +33,54 @@
 
       <q-separator class="q-mt-md" />
 
-      <q-card-actions class="q-pb-none q-pt-md">
-        <q-btn flat round icon="done" />
+      <q-card-actions class="q-pb-none q-pt-md items-center justify-evenly">
         <q-btn
-          flat
           color="secondary"
+          icon-right="done"
           @click="onPlayerSelection(player)"
         >
-          Pick Player
+          <span class="q-mx-md q-px-xs">Pick Player</span>
         </q-btn>
       </q-card-actions>
     </q-card>
+
+    <q-dialog v-model="confirm" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <q-avatar
+            icon="done"
+            color="secondary"
+            text-color="white"
+          />
+          <span class="q-ml-sm">
+            Choose {{ player.name }}?
+          </span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn
+            flat
+            label="Cancel"
+            color="primary"
+            v-close-popup
+          />
+
+          <q-btn
+            flat
+            label="Confirm"
+            color="primary"
+            v-close-popup
+            @click="onConfirmation"
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
 import { useFootballPlayersStore } from 'src/stores/football-players-store';
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'PlayerPickComponent',
@@ -60,7 +91,9 @@ export default defineComponent({
 
     return {
       footballPlayersStore,
-      IMAGE_URL
+      IMAGE_URL,
+      confirm: ref(false),
+      player: ref(),
     };
   },
   methods: {
@@ -72,10 +105,16 @@ export default defineComponent({
       ];
     },
     onPlayerSelection(player) {
-      console.log(player.name);
-      this.footballPlayersStore.updateFootballPlayersSelection(
-        players
+      this.confirm = true;
+      this.player = player;
+    },
+    onConfirmation() {
+      this.footballPlayersStore.updatePickedFootballPlayerName(
+        this.player.name
       );
+      this.footballPlayersStore.resetSelectedFootballPositions();
+      this.footballPlayersStore.resetSelectedFootballPlayersNames();
+      this.footballPlayersStore.resetStep();
     }
   }
 });

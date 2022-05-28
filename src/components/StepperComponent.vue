@@ -2,10 +2,11 @@
   <div class="q-pa-md">
 
     <q-stepper
-      v-model="step"
+      v-model="footballPlayersStore.currentStep"
       ref="stepper"
       animated
       active-color="blue"
+      @before-transition="beforeTransition"
     >
       <q-step
         v-for="step in steps"
@@ -20,13 +21,14 @@
       <template v-slot:navigation>
         <q-stepper-navigation>
           <q-btn
+            v-if="footballPlayersStore.currentStep < steps.length"
             @click="$refs.stepper.next()"
             color="blue"
-            :label="step === 3 ? 'Finish' : 'Continue'"
+            label="Continue"
           />
 
           <q-btn
-            v-if="step > 1"
+            v-if="footballPlayersStore.currentStep > 1"
             flat color="blue"
             @click="$refs.stepper.previous()"
             label="Back"
@@ -40,10 +42,10 @@
 </template>
 
 <script lang="ts">
+import { useFootballPlayersStore } from 'src/stores/football-players-store';
 import {
   defineComponent,
   PropType,
-  ref,
 } from 'vue';
 import { Step } from './models';
 
@@ -56,8 +58,18 @@ export default defineComponent({
     },
   },
   setup () {
+    const footballPlayersStore = useFootballPlayersStore();
+
     return {
-      step: ref(1)
+      footballPlayersStore
+    };
+  },
+  methods: {
+    beforeTransition(newVal: number, oldVal: number): void {
+      const isBackToStep1 = newVal === 1 && oldVal === 2;
+      if (isBackToStep1) {
+        this.footballPlayersStore.resetSelectedFootballPlayersNames();
+      }
     }
   }
 
