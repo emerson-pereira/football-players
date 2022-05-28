@@ -1,5 +1,6 @@
 export interface FootballPlayersStore {
   footballPlayers: FootballPlayer[],
+  selectedFootballPositions: string[],
 }
 
 export interface FootballPlayer {

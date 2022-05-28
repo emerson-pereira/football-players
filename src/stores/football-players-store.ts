@@ -5,6 +5,7 @@ import { FootballPlayer, FootballPlayersStore } from './models';
 export const useFootballPlayersStore = defineStore('football-players', {
   state: (): FootballPlayersStore => ({
     footballPlayers: [],
+    selectedFootballPositions: [],
   }),
   getters: {
     footballPositions: (state): string[] => {
@@ -18,7 +19,10 @@ export const useFootballPlayersStore = defineStore('football-players', {
     async getFootballPlayers(): Promise<void> {
       const response = await api.get<FootballPlayer[]>('/football-players/master/players.json');
       this.footballPlayers = response.data;
-    }
+    },
+    updateFootballPositionsSelection(positions: string[]): void {
+      this.selectedFootballPositions = positions;
+    },
   },
   persist: true
 });

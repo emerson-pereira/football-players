@@ -11,6 +11,7 @@ import PlayerSelectionComponent from 'src/components/PlayersSelectionComponent.v
 import PlayerPickComponent from 'src/components/PlayerPickComponent.vue';
 import { defineComponent, ref, shallowRef } from 'vue';
 import StepperComponent from '../components/StepperComponent.vue';
+import { useFootballPlayersStore } from 'src/stores/football-players-store';
 
 const positionsSelectionComponent = shallowRef(PositionsSelectionComponent);
 const playersSelectionComponent = shallowRef(PlayerSelectionComponent);
@@ -39,6 +40,10 @@ export default defineComponent({
     ]);
 
     return { steps };
+  },
+  mounted() {
+    const footballPlayersStore = useFootballPlayersStore();
+    footballPlayersStore.getFootballPlayers();
   }
 });
 </script>
